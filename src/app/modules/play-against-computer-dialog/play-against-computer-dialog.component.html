@@ -1,0 +1,33 @@
+<mat-dialog-content class="p-6 max-w-md mx-auto">
+    <h2 mat-dialog-title class="text-2xl font-semibold text-center text-gray-800 dark:text-white">
+        Stockfish Strength
+    </h2>
+
+    <div class="stockfish-strength-container p-4 mt-1 grid grid-cols-3 gap-3 sm:grid-cols-4">
+        <div *ngFor="let level of stockfishLevels" 
+            class="strength-div cursor-pointer bg-gray-100 dark:bg-gray-700 p-1 pb-2 rounded-lg text-center font-medium 
+                   hover:bg-gray-200 dark:hover:bg-gray-800 transition-all duration-300 active:scale-95"
+            (click)="selectStockfishLevel(level)"
+            [ngClass]="{'bg-blue-500 text-white dark:bg-blue-400': level === stockfishLevel}">
+            {{level}}
+        </div>
+    </div>
+
+    <div class="choose-side mt-6 flex justify-center gap-6">
+        <img src="assets/pieces/white king.svg" 
+            class="king-img cursor-pointer w-16 sm:w-20 transition-all hover:scale-110 active:scale-95"
+            draggable="false" (click)="play('w')">
+
+        <img src="assets/pieces/black king.svg" 
+            class="king-img cursor-pointer w-16 sm:w-20 transition-all hover:scale-110 active:scale-95"
+            draggable="false" (click)="play('b')">
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="p-4 flex justify-end">
+    <button mat-button mat-dialog-close 
+        class="px-4 py-2 text-gray-700 dark:text-white rounded-md bg-gray-200 dark:bg-gray-700 
+               hover:bg-gray-300 dark:hover:bg-gray-600 transition-all">
+        Cancel
+    </button>
+</mat-dialog-actions>

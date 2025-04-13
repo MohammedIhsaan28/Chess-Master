@@ -1,0 +1,42 @@
+<div class="chess-board relative max-w-full mx-auto p-2 mt-6" [ngClass]="{'rotated': flipMode}">
+    <div *ngFor="let row of chessBoardView; let x = index" class="row grid grid-cols-8 gap-0">
+        <div *ngFor="let piece of row; let y = index" class="square relative flex justify-center items-center w-16 h-16 sm:h-20 md:h-24 lg:h-32 cursor-pointer transition-all duration-300" [ngClass]="{'dark': isSquareDark(x, y), 
+            'light':!isSquareDark(x, y),
+            'selected-square': isSquareSelected(x, y),
+            'last-move': isSquareLastMove(x, y),
+            'king-in-check': isSquareChecked(x, y),
+            'promotion-square': isSquarePromotionSquare(x, y)
+
+
+        }
+            
+            " (click)="move(x, y)">
+
+            <div [ngClass]="{'safe-square': isSquareSafeForSelectedPiece(x, y)}"></div>
+
+            <img *ngIf="piece" [src]="pieceImagePaths[piece]" [alt]="piece" class="piece  w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20"
+                [ngClass]="{'rotated': flipMode}">
+        </div>
+    </div>
+
+
+</div>
+<div class="flex justify-end mt-4 lg:mr-48 md:mr-32 ">
+<button class=" w-24 ml-12 p-2 font-bold bg-blue-500 text-white rounded hover:bg-blue-800 transition-all duration-200" (click)="flipBoard()">Flip</button>
+</div>
+<h2 *ngIf="gameOverMessage" class="game-over-message text-center text-2xl font-semibold text-red-600 mt-6">
+    {{gameOverMessage}}
+</h2>
+
+<div *ngIf="isPromotionActive" class="promotion-dialog">
+    <img *ngFor="let piece of promotionPieces()" [src]="pieceImagePaths[piece]" (click)="promotePiece(piece)">
+
+    <span class="close-promotion-dialog absolute top-0 right-0 p-2 text-white cursor-pointer" (click)="closePawnPromotionDialog()">
+        &times;
+    </span>
+</div>
+
+<app-move-list [moveList]="moveList" [gameHistoryPointer]="gameHistoryPointer" [gameHistoryLength]="gameHistory.length"
+    (showPreviousPositionEvent)="showPreviousPosition($event)">
+
+</app-move-list>

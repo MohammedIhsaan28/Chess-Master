@@ -4,6 +4,4 @@ The chess application consists of two modes: playing against a friend in the sam
 
 Images for pieces used from Lichess official repo: https://github.com/lichess-org
 
-Live version: https://awsomecstutorials.github.io/chess-game/
-
 

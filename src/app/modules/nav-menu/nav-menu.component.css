@@ -1,0 +1,8 @@
+html {
+    touch-action: manipulation;
+  }
+  
+  button, a {
+    touch-action: manipulation;
+  }
+  

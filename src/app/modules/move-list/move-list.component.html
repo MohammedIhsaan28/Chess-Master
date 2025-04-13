@@ -1,0 +1,98 @@
+<div class="flex justify-between items-center p-4 space-x-2 w-full sm:max-w-lg mx-auto">
+    <!-- First Page Button -->
+    <button
+      mat-icon-button
+      color="primary"
+      [disabled]="gameHistoryPointer === 0"
+      (click)="showPreviousPosition(0)"
+      class="disabled:opacity-50 text-blue-500 hover:text-blue-700"
+    >
+      <mat-icon>first_page</mat-icon>
+    </button>
+  
+    <!-- Previous Button -->
+    <button
+      mat-icon-button
+      color="primary"
+      [disabled]="gameHistoryPointer === 0"
+      (click)="showPreviousPosition(gameHistoryPointer - 1)"
+      class="disabled:opacity-50 text-blue-500 hover:text-blue-700"
+    >
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+  
+    <!-- Next Button -->
+    <button
+      mat-icon-button
+      color="primary"
+      [disabled]="gameHistoryPointer === gameHistoryLength - 1"
+      (click)="showPreviousPosition(gameHistoryPointer + 1)"
+      class="disabled:opacity-50 text-blue-500 hover:text-blue-700"
+    >
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  
+    <!-- Last Page Button -->
+    <button
+      mat-icon-button
+      color="primary"
+      [disabled]="gameHistoryPointer === gameHistoryLength - 1"
+      (click)="showPreviousPosition(gameHistoryLength - 1)"
+      class="disabled:opacity-50 text-blue-500 hover:text-blue-700"
+    >
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
+  
+  <div
+    class=" bg-gray-700 max-h-60 min-h-32 overflow-y-auto flex flex-col-reverse p-4 space-y-2  rounded-lg shadow-md w-full sm:max-w-lg mx-auto scrollbar-hide"
+  >
+    <div
+      *ngFor="let move of moveList; let moveNumber = index"
+      class="flex items-center space-x-4 text-white"
+    >
+      <!-- Move Number -->
+      <div class="w-10 text-lg font-semibold text-gray-300">
+        {{ moveNumber + 1 }}.
+      </div>
+  
+      <!-- First Move -->
+      <div
+        class="cursor-pointer w-24 p-2 rounded transition-all bg-opacity-75 hover:bg-blue-600"
+        [ngClass]="{
+          'bg-blue-500': moveNumber * 2 + 1 === gameHistoryPointer,
+          'bg-gray-600': moveNumber * 2 + 1 !== gameHistoryPointer
+        }"
+        (click)="showPreviousPosition(moveNumber * 2 + 1)"
+      >
+        {{ move[0] }}
+      </div>
+  
+      <!-- Second Move (if available) -->
+      <div
+        *ngIf="move[1]"
+        class="cursor-pointer w-24 p-2 m-1 rounded transition-all bg-opacity-75 hover:bg-blue-600"
+        [ngClass]="{
+          'bg-blue-500': moveNumber * 2 + 2 === gameHistoryPointer,
+          'bg-gray-600': moveNumber * 2 + 2 !== gameHistoryPointer
+        }"
+        (click)="showPreviousPosition(moveNumber * 2 + 2)"
+      >
+        {{ move[1] }}
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    /* Hide Scrollbar for Webkit */
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+  
+    /* Hide Scrollbar for Firefox and IE */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  
